@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package aigc.v1;
+
+option go_package = "aigcv3/backend/api/aigc/v1;v1";
+
+import "google/api/annotations.proto";
+
+service User {
+  rpc SendCode (SendCodeRequest) returns (SendCodeReply) {
+    option (google.api.http) = {
+      post: "/api/sendCode"
+      body: "*"
+    };
+  }
+  rpc Register (RegisterRequest) returns (RegisterReply) {
+    option (google.api.http) = {
+      post: "/api/register"
+      body: "*"
+    };
+  }
+  rpc Login (LoginRequest) returns (LoginReply) {
+    option (google.api.http) = {
+      post: "/api/login"
+      body: "*"
+    };
+  }
+}
+
+message SendCodeRequest {
+  string email = 1;
+}
+message SendCodeReply {
+  int32 code = 1;
+  string message = 2;
+  string data = 3;
+}
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string code = 3;
+}
+message RegisterReply {
+  int32 code = 1;
+  string message = 2;
+  string data = 3;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+message LoginReply {
+  int32 code = 1;
+  string token = 2;
+  string message = 3;
+} 

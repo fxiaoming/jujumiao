@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package aigc.v1;
+
+option go_package = "aigcv3/backend/api/aigc/v1;v1";
+
+import "google/api/annotations.proto";
+
+service Conversation {
+  rpc CreateConversation (CreateConversationRequest) returns (CreateConversationReply) {
+    option (google.api.http) = {
+      post: "/api/conversation"
+      body: "*"
+    };
+  }
+}
+
+message CreateConversationRequest {
+  // User-ID 建议通过 header 传递，Kratos 可通过 context 获取
+}
+
+message CreateConversationReply {
+  int32 code = 1;
+  string message = 2;
+  string conversationId = 3;
+} 

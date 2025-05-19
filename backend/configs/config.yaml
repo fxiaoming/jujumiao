@@ -1,0 +1,31 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 1s
+data:
+  database:
+    driver: mongodb
+    source: mongodb://localhost:27017
+  redis:
+    addr: 127.0.0.1:6379
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+    password: ""
+    db: 0
+deepseek:
+  api_key: "sk-2a0eb7f90594436e96905641ee6e2191"
+  endpoint: "https://api.deepseek.com/v1/chat/completions"
+mail:
+  smtp_host: smtp.qq.com
+  smtp_port: 465
+  smtp_username: 2687297331@qq.com
+  # smtp_password: PJyCvhbLRPUVDQQz
+  smtp_password: oveliflanyakddcg
+  from_address: 2687297331@qq.com
+redis:
+  addr: "localhost:6379"
+  password: ""
+  db: 0

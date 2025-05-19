@@ -1,0 +1,55 @@
+syntax = "proto3";
+package kratos.api;
+
+option go_package = "backend/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+  Deepseek deepseek = 3;
+  Mail mail = 4;
+}
+
+message Deepseek {
+  string api_key = 1;
+  string endpoint = 2;
+}
+
+message Mail {
+  string smtp_host = 1;
+  int32 smtp_port = 2;
+  string smtp_username = 3;
+  string smtp_password = 4;
+  string from_address = 5;
+}
+
+message Server {
+  message HTTP {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  HTTP http = 1;
+  GRPC grpc = 2;
+}
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+  }
+  message Redis {
+     string addr = 1;
+     string password = 2;
+     int32 db = 3;
+  }
+  Database database = 1;
+  Redis redis = 2;
+}

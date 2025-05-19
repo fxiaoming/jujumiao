@@ -1,0 +1,37 @@
+syntax = "proto3";
+package conf;
+
+message Custom {
+  Deepseek deepseek = 1;
+  Database database = 2;
+  Mail mail = 3;
+  Redis redis = 4;
+}
+
+message Deepseek {
+  string api_key = 1;
+  string endpoint = 2;
+}
+
+message Database {
+  string user = 1;
+  string password = 2;
+  string address = 3;
+  string name = 4;
+  int64 max_idle_conns = 5;
+  int64 max_open_conns = 6;
+}
+
+message Mail {
+  string smtp_host = 1;
+  int32 smtp_port = 2;
+  string smtp_username = 3;
+  string smtp_password = 4;
+  string from_address = 5;
+}
+
+message Redis {
+  string addr = 1;
+  string password = 2;
+  int32 db = 3;
+} 

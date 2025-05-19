@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package aigc.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "aigcv3/backend/api/aigc/v1;v1";
+
+service Chat {
+  rpc Chat (ChatRequest) returns (ChatReply) {
+    option (google.api.http) = {
+      post: "/api/chat"
+      body: "*"
+    };
+  }
+}
+
+message ChatRequest {
+  string message = 1;
+  string conversationId = 2;
+}
+
+message ChatReply {
+  int32 code = 1;
+  string message = 2;
+  string data = 3;
+} 
