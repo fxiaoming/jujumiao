@@ -1,7 +1,6 @@
 package data
 
 import (
-	"backend/internal/biz"
 	"backend/internal/conf"
 	"context"
 	"time"
@@ -48,17 +47,4 @@ func NewRedisClient(c *conf.Data) (*redis.Client, error) {
 		Password: c.Redis.Password,
 		DB:       int(c.Redis.Db),
 	}), nil
-}
-
-// UserRepo实现
-
-// userRepo 实现 biz.UserRepo
-// 你可以根据实际需要扩展方法
-
-type userRepo struct {
-	data *Data
-}
-
-func NewUserRepo(data *Data) biz.UserRepo {
-	return &userRepo{data: data}
 }

@@ -87,7 +87,7 @@ func main() {
 		panic(rediserr)
 	}
 
-	app, cleanup, err := wireApp(bc.Server, bc.Data, logger, client, redisClient)
+	app, cleanup, err := wireApp(bc.Server, bc.Data, logger, client, redisClient, &bc)
 	if err != nil {
 		panic(err)
 	}

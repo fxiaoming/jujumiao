@@ -15,14 +15,23 @@ import (
 //	}
 //
 //go:generate mockgen -destination=../mock/biz_mock.go -package=mock . UserRepo
-type UserRepo interface{}
+type User struct {
+	ID       primitive.ObjectID `bson:"_id,omitempty"`
+	Email    string             `bson:"email"`
+	Password string             `bson:"password"`
+}
+
+type UserRepo interface {
+	FindByEmail(ctx context.Context, email string) (*User, error)
+	Create(ctx context.Context, user *User) error
+}
 
 type UserUsecase struct {
-	repo UserRepo
+	Repo UserRepo
 }
 
 func NewUserUsecase(repo UserRepo) *UserUsecase {
-	return &UserUsecase{repo: repo}
+	return &UserUsecase{Repo: repo}
 }
 
 // Message 聊天消息结构体
