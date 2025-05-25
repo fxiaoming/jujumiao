@@ -1,14 +1,15 @@
 body {
-  background: linear-gradient(135deg, #e0e7ff 0%, #fff 100%);
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f2f5 100%);
   min-height: 100vh;
   margin: 0;
   font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
 }
 
 .main-box {
-  max-width: 400px;
-  margin: 60px auto;
-  padding: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .card {
@@ -57,15 +58,13 @@ body {
 }
 
 .btn-main {
-  width: 100%;
-  padding: 12px 0;
+  padding: 10px 20px;
   background: linear-gradient(90deg, #6c63ff 0%, #4f8cff 100%);
   color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 17px;
   font-weight: 600;
-  margin-top: 8px;
   cursor: pointer;
   transition: background 0.2s;
   box-shadow: 0 2px 8px rgba(76, 99, 255, 0.08);

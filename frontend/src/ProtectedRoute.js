@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
+  
   if (!token) {
     // 未登录，跳转到登录页
     return <Navigate to="/login" replace />;

@@ -9,6 +9,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/gorilla/handlers"
+	"backend/internal/middleware"
 )
 
 // NewHTTPServer new an HTTP server.
@@ -17,6 +18,7 @@ func NewHTTPServer(c *conf.Server, chat *service.ChatService, conversation *serv
 		http.Middleware(
 			recovery.Recovery(),
 			logging.Server(logger),
+			middleware.JWTAuth(),
 		),
 	}
 	if c.Http.Network != "" {
