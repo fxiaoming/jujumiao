@@ -46,20 +46,47 @@ type Message struct {
 	Content string
 }
 
-type ConversationUsecase struct{}
+type Conversation struct {
+	ID             primitive.ObjectID `bson:"_id,omitempty"`
+	UserID         primitive.ObjectID `bson:"user_id"`
+	InitialContext []Message          `bson:"initial_context"`
+}
 
-func NewConversationUsecase() *ConversationUsecase {
-	return &ConversationUsecase{}
+type ConversationRepo interface {
+	Create(ctx context.Context, userID primitive.ObjectID, initialContext []Message) (primitive.ObjectID, error)
+	GetContext(ctx context.Context, convID primitive.ObjectID) ([]Message, error)
+}
+
+type ConversationUsecase struct {
+	userRepo         UserRepo
+	conversationRepo ConversationRepo
+}
+
+func NewConversationUsecase(userRepo UserRepo, conversationRepo ConversationRepo) *ConversationUsecase {
+	return &ConversationUsecase{userRepo: userRepo, conversationRepo: conversationRepo}
 }
 
 func (uc *ConversationUsecase) Create(ctx context.Context, userID primitive.ObjectID, initialContext []Message) (primitive.ObjectID, error) {
-	// 这里应调用data层实际实现，暂返回空ID
-	return primitive.NewObjectID(), nil
+
+	convID, err := uc.conversationRepo.Create(ctx, userID, initialContext)
+	if err != nil {
+		return primitive.NilObjectID, err
+	}
+
+	return convID, nil
 }
 
 func (uc *ConversationUsecase) GetContext(ctx context.Context, convID primitive.ObjectID) ([]Message, error) {
 	// 这里应调用data层实际实现，暂返回空slice
 	return []Message{}, nil
+}
+
+func (uc *ConversationUsecase) GetUserIDByEmail(ctx context.Context, email string) (primitive.ObjectID, error) {
+	user, err := uc.userRepo.FindByEmail(ctx, email)
+	if err != nil {
+		return primitive.NilObjectID, err
+	}
+	return user.ID, nil
 }
 
 // ProviderSet is biz providers.

@@ -1,6 +1,7 @@
 package data
 
 import (
+	"backend/internal/biz"
 	"context"
 	"encoding/json"
 
@@ -24,7 +25,7 @@ type ConversationRepo struct {
 	data *Data
 }
 
-func NewConversationRepo(data *Data) *ConversationRepo {
+func NewConversationRepo(data *Data) biz.ConversationRepo {
 	return &ConversationRepo{data: data}
 }
 
@@ -40,15 +41,17 @@ func (r *ConversationRepo) GetContext(ctx context.Context, convID primitive.Obje
 }
 
 func (r *ConversationRepo) Create(ctx context.Context, userID primitive.ObjectID, initialContext []Message) (primitive.ObjectID, error) {
-	// contextJSON, _ := json.Marshal(initialContext)
-	// conv := data.Conversation{
-	// 		UserID:    userID,
-	// 		Context:   string(contextJSON),
-	// 		CreatedAt: time.Now(),
-	// }
-	// res, err := s.data.Mongo.Database("jujumiao").Collection("conversation").InsertOne(ctx, conv)
-	// if err != nil {
-	// 		return primitive.NilObjectID, err
-	// }
-	return primitive.NilObjectID, nil
+	contextJSON, err := json.Marshal(initialContext)
+	if err != nil {
+		return primitive.NilObjectID, err
+	}
+	conv := Conversation{
+		UserID:  userID,
+		Context: string(contextJSON),
+	}
+	res, err := r.data.Mongo.Database("jujumiao").Collection("conversation").InsertOne(ctx, conv)
+	if err != nil {
+		return primitive.NilObjectID, err
+	}
+	return res.InsertedID.(primitive.ObjectID), nil
 }
