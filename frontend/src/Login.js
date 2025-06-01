@@ -82,11 +82,11 @@ export default function Login({ onLogin, onSwitch }) {
     setMsg('');
     try {
       const response = await api.post('/api/login', { email, password });
-      const data = await response.json();
-
-      if (response.ok && data.code === 200) {
+      console.log(response);
+      
+      if (response.code === 200) {
         // 保存 token
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', response.token);
 
         // 弹窗提示
         message.success('登录成功！即将进入聊天界面');
@@ -97,9 +97,9 @@ export default function Login({ onLogin, onSwitch }) {
         }, 1000);
 
         // 兼容 onLogin 回调
-        onLogin && onLogin(data.token, data.userId);
+        onLogin && onLogin(response.token, response.userId);
       } else {
-        message.error(data.message || '登录失败');
+        message.error(response.message || '登录失败');
       }
     } catch (e) {
       message.error('网络错误，请重试');

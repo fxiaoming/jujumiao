@@ -5,6 +5,8 @@ import Chat from './Chat';
 import './App.css';
 import ProtectedRoute from './ProtectedRoute';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AppRoutes() {
   const navigate = useNavigate();
@@ -35,6 +37,7 @@ function AppRoutes() {
 function App() {
   return (
     <div className="main-box">
+      <ToastContainer />
       <Router>
         <AppRoutes />
       </Router>

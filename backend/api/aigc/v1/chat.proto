@@ -1,10 +1,7 @@
 syntax = "proto3";
-
 package aigc.v1;
-
-import "google/api/annotations.proto";
-
 option go_package = "aigcv3/backend/api/aigc/v1;v1";
+import "google/api/annotations.proto";
 
 service Chat {
   rpc Chat (ChatRequest) returns (ChatReply) {
@@ -20,8 +17,13 @@ message ChatRequest {
   string conversationId = 2;
 }
 
+ message ChatData {
+  string conversationId = 1;
+  string content = 2;
+};
+
 message ChatReply {
   int32 code = 1;
   string message = 2;
-  string data = 3;
+  ChatData data = 3;
 } 

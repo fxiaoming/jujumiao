@@ -19,7 +19,7 @@ func NewUserRepo(data *Data) biz.UserRepo {
 
 func (r *userRepo) FindByEmail(ctx context.Context, email string) (*biz.User, error) {
 	var user biz.User
-	err := r.data.Mongo.Database("yourdb").Collection("users").FindOne(ctx, bson.M{"email": email}).Decode(&user)
+	err := r.data.Mongo.Database("jujumiao").Collection("users").FindOne(ctx, bson.M{"email": email}).Decode(&user)
 	if err == mongo.ErrNoDocuments {
 		return nil, nil
 	}
@@ -27,6 +27,6 @@ func (r *userRepo) FindByEmail(ctx context.Context, email string) (*biz.User, er
 }
 
 func (r *userRepo) Create(ctx context.Context, user *biz.User) error {
-	_, err := r.data.Mongo.Database("yourdb").Collection("users").InsertOne(ctx, user)
+	_, err := r.data.Mongo.Database("jujumiao").Collection("users").InsertOne(ctx, user)
 	return err
 }

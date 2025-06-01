@@ -3,10 +3,39 @@
 
 openapi: 3.0.3
 info:
-    title: Conversation API
+    title: ""
     version: 0.0.1
 paths:
+    /api/chat:
+        post:
+            tags:
+                - Chat
+            operationId: Chat_Chat
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/aigc.v1.ChatRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/aigc.v1.ChatReply'
     /api/conversation:
+        get:
+            tags:
+                - Conversation
+            operationId: Conversation_GetConversation
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/aigc.v1.GetConversationReply'
         post:
             tags:
                 - Conversation
@@ -15,7 +44,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/CreateConversationRequest'
+                            $ref: '#/components/schemas/aigc.v1.EmptyRequest'
                 required: true
             responses:
                 "200":
@@ -23,16 +52,120 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/CreateConversationReply'
-                default:
-                    description: Default error response
+                                $ref: '#/components/schemas/aigc.v1.CreateConversationReply'
+    /api/conversation/{conversationId}/context:
+        get:
+            tags:
+                - Conversation
+            operationId: Conversation_GetConversationContext
+            parameters:
+                - name: conversationId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Status'
+                                $ref: '#/components/schemas/aigc.v1.GetConversationContextReply'
+    /api/login:
+        post:
+            tags:
+                - User
+            operationId: User_Login
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/aigc.v1.LoginRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/aigc.v1.LoginReply'
+    /api/register:
+        post:
+            tags:
+                - User
+            operationId: User_Register
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/aigc.v1.RegisterRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/aigc.v1.RegisterReply'
+    /api/sendCode:
+        post:
+            tags:
+                - User
+            operationId: User_SendCode
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/aigc.v1.SendCodeRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/aigc.v1.SendCodeReply'
 components:
     schemas:
-        CreateConversationReply:
+        aigc.v1.ChatData:
+            type: object
+            properties:
+                conversationId:
+                    type: string
+                content:
+                    type: string
+        aigc.v1.ChatReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/aigc.v1.ChatData'
+        aigc.v1.ChatRequest:
+            type: object
+            properties:
+                message:
+                    type: string
+                conversationId:
+                    type: string
+        aigc.v1.ContextData:
+            type: object
+            properties:
+                role:
+                    type: string
+                content:
+                    type: string
+        aigc.v1.ConversationData:
+            type: object
+            properties:
+                cid:
+                    type: string
+                calMessage:
+                    type: string
+        aigc.v1.CreateConversationReply:
             type: object
             properties:
                 code:
@@ -42,32 +175,85 @@ components:
                     type: string
                 conversationId:
                     type: string
-        CreateConversationRequest:
+        aigc.v1.EmptyRequest:
             type: object
             properties: {}
-        GoogleProtobufAny:
-            type: object
-            properties:
-                '@type':
-                    type: string
-                    description: The type of the serialized message.
-            additionalProperties: true
-            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-        Status:
+        aigc.v1.GetConversationContextReply:
             type: object
             properties:
                 code:
                     type: integer
-                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
                     format: int32
                 message:
                     type: string
-                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-                details:
+                context:
                     type: array
                     items:
-                        $ref: '#/components/schemas/GoogleProtobufAny'
-                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
-            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+                        $ref: '#/components/schemas/aigc.v1.ContextData'
+        aigc.v1.GetConversationReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                data:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/aigc.v1.ConversationData'
+        aigc.v1.LoginReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                token:
+                    type: string
+                message:
+                    type: string
+        aigc.v1.LoginRequest:
+            type: object
+            properties:
+                email:
+                    type: string
+                password:
+                    type: string
+        aigc.v1.RegisterReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                data:
+                    type: string
+        aigc.v1.RegisterRequest:
+            type: object
+            properties:
+                email:
+                    type: string
+                password:
+                    type: string
+                code:
+                    type: string
+        aigc.v1.SendCodeReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                data:
+                    type: string
+        aigc.v1.SendCodeRequest:
+            type: object
+            properties:
+                email:
+                    type: string
 tags:
+    - name: Chat
     - name: Conversation
+    - name: User

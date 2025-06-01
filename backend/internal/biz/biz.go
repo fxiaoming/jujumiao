@@ -42,8 +42,8 @@ func NewUserUsecase(repo UserRepo) *UserUsecase {
 //		Content string `json:"content"`
 //	}
 type Message struct {
-	Role    string
-	Content string
+	Role    string `json:"role"`
+	Content string `json:"content"`
 }
 
 type Conversation struct {
@@ -55,6 +55,9 @@ type Conversation struct {
 type ConversationRepo interface {
 	Create(ctx context.Context, userID primitive.ObjectID, initialContext []Message) (primitive.ObjectID, error)
 	GetContext(ctx context.Context, convID primitive.ObjectID) ([]Message, error)
+	GetConversation(ctx context.Context, convID primitive.ObjectID) ([]Message, error)
+	ListByUserID(ctx context.Context, userID primitive.ObjectID) ([]primitive.ObjectID, error)
+	UpdateContext(ctx context.Context, convID primitive.ObjectID, messages []Message) error
 }
 
 type ConversationUsecase struct {
@@ -67,7 +70,6 @@ func NewConversationUsecase(userRepo UserRepo, conversationRepo ConversationRepo
 }
 
 func (uc *ConversationUsecase) Create(ctx context.Context, userID primitive.ObjectID, initialContext []Message) (primitive.ObjectID, error) {
-
 	convID, err := uc.conversationRepo.Create(ctx, userID, initialContext)
 	if err != nil {
 		return primitive.NilObjectID, err
@@ -76,9 +78,20 @@ func (uc *ConversationUsecase) Create(ctx context.Context, userID primitive.Obje
 	return convID, nil
 }
 
+func (uc *ConversationUsecase) GetConversation(ctx context.Context, convID primitive.ObjectID) ([]Message, error) {
+	conversation, err := uc.conversationRepo.GetConversation(ctx, convID)
+	if err != nil {
+		return []Message{}, err
+	}
+	return conversation, nil
+}
+
 func (uc *ConversationUsecase) GetContext(ctx context.Context, convID primitive.ObjectID) ([]Message, error) {
-	// 这里应调用data层实际实现，暂返回空slice
-	return []Message{}, nil
+	contextData, err := uc.conversationRepo.GetContext(ctx, convID)
+	if err != nil {
+		return []Message{}, err
+	}
+	return contextData, nil
 }
 
 func (uc *ConversationUsecase) GetUserIDByEmail(ctx context.Context, email string) (primitive.ObjectID, error) {
@@ -87,6 +100,18 @@ func (uc *ConversationUsecase) GetUserIDByEmail(ctx context.Context, email strin
 		return primitive.NilObjectID, err
 	}
 	return user.ID, nil
+}
+
+func (uc *ConversationUsecase) ListConversationsByUserID(ctx context.Context, userID primitive.ObjectID) ([]primitive.ObjectID, error) {
+	convIDs, err := uc.conversationRepo.ListByUserID(ctx, userID)
+	if err != nil {
+		return []primitive.ObjectID{}, err
+	}
+	return convIDs, nil
+}
+
+func (uc *ConversationUsecase) UpdateContext(ctx context.Context, convID primitive.ObjectID, messages []Message) error {
+	return uc.conversationRepo.UpdateContext(ctx, convID, messages)
 }
 
 // ProviderSet is biz providers.

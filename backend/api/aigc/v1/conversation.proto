@@ -7,13 +7,53 @@ option go_package = "aigcv3/backend/api/aigc/v1;v1";
 import "google/api/annotations.proto";
 
 service Conversation {
-  rpc CreateConversation (CreateConversationRequest) returns (CreateConversationReply) {
+  rpc CreateConversation (EmptyRequest) returns (CreateConversationReply) {
     option (google.api.http) = {
       post: "/api/conversation"
       body: "*"
     };
   }
+
+  rpc GetConversation (EmptyRequest) returns (GetConversationReply) {
+    option (google.api.http) = {
+      get: "/api/conversation"
+    };
+  }
+
+  rpc GetConversationContext (GetConversationContextRequest) returns (GetConversationContextReply) {
+    option (google.api.http) = {
+      get: "/api/conversation/{conversationId}/context"
+    };
+  }
 }
+
+message GetConversationContextRequest {
+  string conversationId = 1;
+}
+
+message ContextData {
+  string role = 1;
+  string content = 2;
+}
+
+message GetConversationContextReply {
+  int32 code = 1;
+  string message = 2;
+  repeated ContextData context = 3; // 假设上下文是字符串列表
+}
+
+ message ConversationData {
+    string cid = 1;
+    string calMessage = 2;
+  }
+
+message GetConversationReply {
+  int32 code = 1;
+  string message = 2;
+  repeated ConversationData data = 3;
+}
+
+message EmptyRequest {}
 
 message CreateConversationRequest {
   // User-ID 建议通过 header 传递，Kratos 可通过 context 获取
