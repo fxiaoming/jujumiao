@@ -28,6 +28,7 @@ func JWTAuth() middleware.Middleware {
 	protectedPaths := map[string]struct{}{
 		"/api/chat":         {},
 		"/api/conversation": {},
+		"/api/userInfo":     {},
 	}
 	return func(handler middleware.Handler) middleware.Handler {
 		return func(ctx context.Context, req interface{}) (interface{}, error) {

@@ -25,6 +25,17 @@ service User {
       body: "*"
     };
   }
+  rpc GetUserInfo (GetUserInfoRequest) returns (GetUserInfoReply) {
+    option (google.api.http) = {
+      get: "/api/userInfo"
+    };
+  }
+  rpc Logout (LogoutRequest) returns (LogoutReply) {
+    option (google.api.http) = {
+      post: "/api/logout"
+      body: "*"
+    };
+  }
 }
 
 message SendCodeRequest {
@@ -55,4 +66,17 @@ message LoginReply {
   int32 code = 1;
   string token = 2;
   string message = 3;
+}
+
+message GetUserInfoRequest {}
+message GetUserInfoReply {
+  int32 code = 1;
+  string email = 2;
+  string message = 3;
+}
+
+message LogoutRequest {}
+message LogoutReply {
+  int32 code = 1;
+  string message = 2;
 } 

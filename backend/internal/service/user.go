@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"math/rand"
 	"time"
@@ -12,6 +11,8 @@ import (
 	"backend/internal/biz"
 	"backend/internal/conf"
 	"backend/internal/data"
+
+	"backend/internal/middleware"
 
 	"github.com/golang-jwt/jwt/v5"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -164,15 +165,15 @@ func GenerateToken(email string) (string, error) {
 		"exp":   time.Now().Add(24 * time.Hour).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(jwtSecret)
+	tokenStr, err := token.SignedString(jwtSecret)
+	if err != nil {
+		return "", err
+	}
+
+	return tokenStr, nil
 }
 
-func CheckToken(tokenStr string) (string, error) {
-	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-		return jwtSecret, nil
-	})
-	if err != nil || !token.Valid {
-		return "", errors.New("无效token")
-	}
-	return token.Claims.(jwt.MapClaims)["email"].(string), nil
+func (s *UserService) GetUserInfo(ctx context.Context, req *pb.GetUserInfoRequest) (*pb.GetUserInfoReply, error) {
+	email, _ := ctx.Value(middleware.CtxKeyEmail{}).(string)
+	return &pb.GetUserInfoReply{Code: 200, Email: email, Message: "获取成功"}, nil
 }

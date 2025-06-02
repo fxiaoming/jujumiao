@@ -10,6 +10,9 @@ import (
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/gorilla/handlers"
 	"backend/internal/middleware"
+	 netHttp "net/http"
+	 "os"
+	 "path/filepath"
 )
 
 // NewHTTPServer new an HTTP server.
@@ -40,5 +43,51 @@ func NewHTTPServer(c *conf.Server, chat *service.ChatService, conversation *serv
 	v1.RegisterChatHTTPServer(srv, chat)
 	v1.RegisterConversationHTTPServer(srv, conversation)
 	v1.RegisterUserHTTPServer(srv, user)
+
+	// 单独定义文件上传接口
+	srv.Handle("/api/upload", netHttp.HandlerFunc(UploadFileHandler))
 	return srv
+}
+
+func UploadFileHandler(w netHttp.ResponseWriter, r *netHttp.Request) {
+	const maxFileSize = 10 << 20 // 10 MB
+	uploadDir := "/home/xiaoming/uploadFile/aigcv3"
+
+	// 检查并创建上传目录
+	if _, err := os.Stat(uploadDir); os.IsNotExist(err) {
+		if err := os.MkdirAll(uploadDir, os.ModePerm); err != nil {
+			netHttp.Error(w, "无法创建上传目录", netHttp.StatusInternalServerError)
+			return
+		}
+	}
+
+	// 解析 multipart 表单
+	if err := r.ParseMultipartForm(maxFileSize); err != nil {
+		netHttp.Error(w, "文件过大或表单解析失败: "+err.Error(), netHttp.StatusBadRequest)
+		return
+	}
+
+	// 获取文件头
+	file, handler, err := r.FormFile("file")
+	if err != nil {
+		netHttp.Error(w, "未找到文件参数: "+err.Error(), netHttp.StatusBadRequest)
+		return
+	}
+	defer file.Close()
+
+	// 保存文件
+	savePath := filepath.Join(uploadDir, handler.Filename)
+	outFile, err := os.Create(savePath)
+	if err != nil {
+		netHttp.Error(w, "创建文件失败: "+err.Error(), netHttp.StatusInternalServerError)
+		return
+	}
+	defer outFile.Close()
+
+	if _, err := outFile.ReadFrom(file); err != nil {
+		netHttp.Error(w, "保存文件失败: "+err.Error(), netHttp.StatusInternalServerError)
+		return
+	}
+
+	w.Write([]byte("文件上传成功，保存路径: " + savePath))
 }
