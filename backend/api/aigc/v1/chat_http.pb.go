@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-http v2.8.4
 // - protoc             v3.21.12
-// source: api/aigc/v1/chat.proto
+// source: aigc/v1/chat.proto
 
 package v1
 

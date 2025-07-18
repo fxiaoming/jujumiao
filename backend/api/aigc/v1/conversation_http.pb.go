@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-http v2.8.4
 // - protoc             v3.21.12
-// source: api/aigc/v1/conversation.proto
+// source: aigc/v1/conversation.proto
 
 package v1
 
@@ -20,19 +20,25 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 const OperationConversationCreateConversation = "/aigc.v1.Conversation/CreateConversation"
+const OperationConversationGetConversation = "/aigc.v1.Conversation/GetConversation"
+const OperationConversationGetConversationContext = "/aigc.v1.Conversation/GetConversationContext"
 
 type ConversationHTTPServer interface {
-	CreateConversation(context.Context, *CreateConversationRequest) (*CreateConversationReply, error)
+	CreateConversation(context.Context, *EmptyRequest) (*CreateConversationReply, error)
+	GetConversation(context.Context, *EmptyRequest) (*GetConversationReply, error)
+	GetConversationContext(context.Context, *GetConversationContextRequest) (*GetConversationContextReply, error)
 }
 
 func RegisterConversationHTTPServer(s *http.Server, srv ConversationHTTPServer) {
 	r := s.Route("/")
 	r.POST("/api/conversation", _Conversation_CreateConversation0_HTTP_Handler(srv))
+	r.GET("/api/conversation", _Conversation_GetConversation0_HTTP_Handler(srv))
+	r.GET("/api/conversation/{conversationId}/context", _Conversation_GetConversationContext0_HTTP_Handler(srv))
 }
 
 func _Conversation_CreateConversation0_HTTP_Handler(srv ConversationHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in CreateConversationRequest
+		var in EmptyRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
@@ -41,7 +47,7 @@ func _Conversation_CreateConversation0_HTTP_Handler(srv ConversationHTTPServer) 
 		}
 		http.SetOperation(ctx, OperationConversationCreateConversation)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateConversation(ctx, req.(*CreateConversationRequest))
+			return srv.CreateConversation(ctx, req.(*EmptyRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -52,8 +58,51 @@ func _Conversation_CreateConversation0_HTTP_Handler(srv ConversationHTTPServer) 
 	}
 }
 
+func _Conversation_GetConversation0_HTTP_Handler(srv ConversationHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in EmptyRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationConversationGetConversation)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetConversation(ctx, req.(*EmptyRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetConversationReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Conversation_GetConversationContext0_HTTP_Handler(srv ConversationHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetConversationContextRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationConversationGetConversationContext)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetConversationContext(ctx, req.(*GetConversationContextRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetConversationContextReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type ConversationHTTPClient interface {
-	CreateConversation(ctx context.Context, req *CreateConversationRequest, opts ...http.CallOption) (rsp *CreateConversationReply, err error)
+	CreateConversation(ctx context.Context, req *EmptyRequest, opts ...http.CallOption) (rsp *CreateConversationReply, err error)
+	GetConversation(ctx context.Context, req *EmptyRequest, opts ...http.CallOption) (rsp *GetConversationReply, err error)
+	GetConversationContext(ctx context.Context, req *GetConversationContextRequest, opts ...http.CallOption) (rsp *GetConversationContextReply, err error)
 }
 
 type ConversationHTTPClientImpl struct {
@@ -64,13 +113,39 @@ func NewConversationHTTPClient(client *http.Client) ConversationHTTPClient {
 	return &ConversationHTTPClientImpl{client}
 }
 
-func (c *ConversationHTTPClientImpl) CreateConversation(ctx context.Context, in *CreateConversationRequest, opts ...http.CallOption) (*CreateConversationReply, error) {
+func (c *ConversationHTTPClientImpl) CreateConversation(ctx context.Context, in *EmptyRequest, opts ...http.CallOption) (*CreateConversationReply, error) {
 	var out CreateConversationReply
 	pattern := "/api/conversation"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationConversationCreateConversation))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *ConversationHTTPClientImpl) GetConversation(ctx context.Context, in *EmptyRequest, opts ...http.CallOption) (*GetConversationReply, error) {
+	var out GetConversationReply
+	pattern := "/api/conversation"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationConversationGetConversation))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+func (c *ConversationHTTPClientImpl) GetConversationContext(ctx context.Context, in *GetConversationContextRequest, opts ...http.CallOption) (*GetConversationContextReply, error) {
+	var out GetConversationContextReply
+	pattern := "/api/conversation/{conversationId}/context"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationConversationGetConversationContext))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

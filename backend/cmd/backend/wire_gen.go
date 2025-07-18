@@ -26,14 +26,15 @@ import (
 
 // wireApp init kratos application.
 func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger, client *mongo.Client, redisClient *redis.Client, bootstrap *conf.Bootstrap) (*kratos.App, func(), error) {
-	conversationUsecase := biz.NewConversationUsecase()
-	chatService := service.NewChatService(conversationUsecase)
-	conversationService := service.NewConversationService(conversationUsecase)
 	dataData, cleanup, err := data.NewData(confData, logger, client, redisClient)
 	if err != nil {
 		return nil, nil, err
 	}
 	userRepo := data.NewUserRepo(dataData)
+	conversationRepo := data.NewConversationRepo(dataData)
+	conversationUsecase := biz.NewConversationUsecase(userRepo, conversationRepo)
+	chatService := service.NewChatService(conversationUsecase, bootstrap)
+	conversationService := service.NewConversationService(conversationUsecase)
 	userUsecase := biz.NewUserUsecase(userRepo)
 	mail := conf.ProvideMail(bootstrap)
 	userService := service.NewUserService(userUsecase, dataData, mail)

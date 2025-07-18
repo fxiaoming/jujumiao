@@ -15,6 +15,7 @@ service Chat {
 message ChatRequest {
   string message = 1;
   string conversationId = 2;
+  string filePath = 3;
 }
 
  message ChatData {

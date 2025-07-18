@@ -89,6 +89,24 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/aigc.v1.LoginReply'
+    /api/logout:
+        post:
+            tags:
+                - User
+            operationId: User_Logout
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/aigc.v1.LogoutRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/aigc.v1.LogoutReply'
     /api/register:
         post:
             tags:
@@ -125,6 +143,18 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/aigc.v1.SendCodeReply'
+    /api/userInfo:
+        get:
+            tags:
+                - User
+            operationId: User_GetUserInfo
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/aigc.v1.GetUserInfoReply'
 components:
     schemas:
         aigc.v1.ChatData:
@@ -150,6 +180,8 @@ components:
                 message:
                     type: string
                 conversationId:
+                    type: string
+                filePath:
                     type: string
         aigc.v1.ContextData:
             type: object
@@ -202,6 +234,16 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/aigc.v1.ConversationData'
+        aigc.v1.GetUserInfoReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                email:
+                    type: string
+                message:
+                    type: string
         aigc.v1.LoginReply:
             type: object
             properties:
@@ -219,6 +261,17 @@ components:
                     type: string
                 password:
                     type: string
+        aigc.v1.LogoutReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+        aigc.v1.LogoutRequest:
+            type: object
+            properties: {}
         aigc.v1.RegisterReply:
             type: object
             properties:

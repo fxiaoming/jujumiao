@@ -12,16 +12,17 @@ import (
 	"backend/internal/biz"
 	"backend/internal/conf"
 
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"backend/internal/middleware"
 	"bufio"
 	"fmt"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type ChatService struct {
 	pb.UnimplementedChatServer
 	convUc *biz.ConversationUsecase
-	conf *conf.Bootstrap
+	conf   *conf.Bootstrap
 }
 
 func NewChatService(convUc *biz.ConversationUsecase, conf *conf.Bootstrap) *ChatService {
@@ -45,10 +46,10 @@ type DeepseekChunkResponse struct {
 	Model             string `json:"model"`
 	SystemFingerprint string `json:"system_fingerprint,omitempty"`
 	Choices           []struct {
-		Index        int     `json:"index"`
+		Index        int         `json:"index"`
 		Delta        biz.Message `json:"delta"`                   // 流式响应中的增量内容
-		Logprobs     any     `json:"logprobs,omitempty"`      // 使用any兼容null
-		FinishReason string  `json:"finish_reason,omitempty"` // 结束原因
+		Logprobs     any         `json:"logprobs,omitempty"`      // 使用any兼容null
+		FinishReason string      `json:"finish_reason,omitempty"` // 结束原因
 	} `json:"choices"`
 }
 
@@ -62,8 +63,6 @@ func (s *ChatService) Chat(ctx context.Context, req *pb.ChatRequest) (*pb.ChatRe
 		return &pb.ChatReply{Code: 500, Message: "获取用户ID失败"}, nil
 	}
 
-	fmt.Println("req", req.ConversationId)
-
 	if req.ConversationId == "" {
 		// 创建新会话
 		convID, err = s.convUc.Create(ctx, userID, []biz.Message{})
@@ -72,7 +71,6 @@ func (s *ChatService) Chat(ctx context.Context, req *pb.ChatRequest) (*pb.ChatRe
 		}
 	} else {
 		convID, err = primitive.ObjectIDFromHex(req.ConversationId)
-		fmt.Println("convID", convID)
 		if err != nil {
 			return &pb.ChatReply{Code: 400, Message: "无效的会话ID"}, nil
 		}
@@ -80,20 +78,40 @@ func (s *ChatService) Chat(ctx context.Context, req *pb.ChatRequest) (*pb.ChatRe
 
 	// 获取会话上下文
 	contextData, err := s.convUc.GetContext(ctx, convID)
-	fmt.Println("contextData", contextData)
 	if err != nil {
 		return &pb.ChatReply{Code: 500, Message: "获取会话上下文失败"}, nil
 	}
+	fmt.Println("req.FilePath", req)
 
-	messages := append(contextData, biz.Message{
-		Role:    "user",
-		Content: req.Message,
-	})
+	if req.FilePath != "" {
+		prompt := fmt.Sprintf(`
+			你是文件转换专家。用户要求：%s
+			文件类型：%s
+			请输出 JSON 指令：
+			{
+				"action": "convert",
+				"target_format": "docx",
+				"steps": ["extract_pages", "ocr_if_scanned", "convert_to_word"],
+				"params": {"pages": "2-4", "retain_tables": true}
+			}
+		`, req.Message, req.FilePath)
+		contextData = append(contextData, biz.Message{
+			Role:    "user",
+			Content: prompt,
+		})
+	} else {
+		contextData = append(contextData, biz.Message{
+			Role:    "user",
+			Content: req.Message,
+		})
+	}
+
+	fmt.Println("contextData", contextData)
 
 	// 将上下文添加到请求中
 	deepseekReq := DeepseekRequest{
 		Model:    "deepseek-chat",
-		Messages: messages,
+		Messages: contextData,
 		Stream:   true,
 	}
 
@@ -154,13 +172,12 @@ func (s *ChatService) Chat(ctx context.Context, req *pb.ChatRequest) (*pb.ChatRe
 		return &pb.ChatReply{Code: 500, Message: "Deepseek流式响应无有效内容"}, nil
 	}
 
-	
 	// 持久化更新后的上下文
-	messages = append(messages, biz.Message{
+	contextData = append(contextData, biz.Message{
 		Role:    "assistant",
 		Content: streamData,
 	})
-	if err := s.convUc.UpdateContext(ctx, convID, messages); err != nil {
+	if err := s.convUc.UpdateContext(ctx, convID, contextData); err != nil {
 		return &pb.ChatReply{Code: 500, Message: "更新会话上下文失败"}, nil
 	}
 

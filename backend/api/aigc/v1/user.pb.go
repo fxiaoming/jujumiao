@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v3.21.12
-// source: api/aigc/v1/user.proto
+// source: aigc/v1/user.proto
 
 package v1
 
@@ -31,7 +31,7 @@ type SendCodeRequest struct {
 
 func (x *SendCodeRequest) Reset() {
 	*x = SendCodeRequest{}
-	mi := &file_api_aigc_v1_user_proto_msgTypes[0]
+	mi := &file_aigc_v1_user_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -43,7 +43,7 @@ func (x *SendCodeRequest) String() string {
 func (*SendCodeRequest) ProtoMessage() {}
 
 func (x *SendCodeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_user_proto_msgTypes[0]
+	mi := &file_aigc_v1_user_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -56,7 +56,7 @@ func (x *SendCodeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendCodeRequest.ProtoReflect.Descriptor instead.
 func (*SendCodeRequest) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_user_proto_rawDescGZIP(), []int{0}
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *SendCodeRequest) GetEmail() string {
@@ -77,7 +77,7 @@ type SendCodeReply struct {
 
 func (x *SendCodeReply) Reset() {
 	*x = SendCodeReply{}
-	mi := &file_api_aigc_v1_user_proto_msgTypes[1]
+	mi := &file_aigc_v1_user_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -89,7 +89,7 @@ func (x *SendCodeReply) String() string {
 func (*SendCodeReply) ProtoMessage() {}
 
 func (x *SendCodeReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_user_proto_msgTypes[1]
+	mi := &file_aigc_v1_user_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -102,7 +102,7 @@ func (x *SendCodeReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendCodeReply.ProtoReflect.Descriptor instead.
 func (*SendCodeReply) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_user_proto_rawDescGZIP(), []int{1}
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *SendCodeReply) GetCode() int32 {
@@ -137,7 +137,7 @@ type RegisterRequest struct {
 
 func (x *RegisterRequest) Reset() {
 	*x = RegisterRequest{}
-	mi := &file_api_aigc_v1_user_proto_msgTypes[2]
+	mi := &file_aigc_v1_user_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -149,7 +149,7 @@ func (x *RegisterRequest) String() string {
 func (*RegisterRequest) ProtoMessage() {}
 
 func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_user_proto_msgTypes[2]
+	mi := &file_aigc_v1_user_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -162,7 +162,7 @@ func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterRequest.ProtoReflect.Descriptor instead.
 func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_user_proto_rawDescGZIP(), []int{2}
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *RegisterRequest) GetEmail() string {
@@ -197,7 +197,7 @@ type RegisterReply struct {
 
 func (x *RegisterReply) Reset() {
 	*x = RegisterReply{}
-	mi := &file_api_aigc_v1_user_proto_msgTypes[3]
+	mi := &file_aigc_v1_user_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -209,7 +209,7 @@ func (x *RegisterReply) String() string {
 func (*RegisterReply) ProtoMessage() {}
 
 func (x *RegisterReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_user_proto_msgTypes[3]
+	mi := &file_aigc_v1_user_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -222,7 +222,7 @@ func (x *RegisterReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterReply.ProtoReflect.Descriptor instead.
 func (*RegisterReply) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_user_proto_rawDescGZIP(), []int{3}
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *RegisterReply) GetCode() int32 {
@@ -256,7 +256,7 @@ type LoginRequest struct {
 
 func (x *LoginRequest) Reset() {
 	*x = LoginRequest{}
-	mi := &file_api_aigc_v1_user_proto_msgTypes[4]
+	mi := &file_aigc_v1_user_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -268,7 +268,7 @@ func (x *LoginRequest) String() string {
 func (*LoginRequest) ProtoMessage() {}
 
 func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_user_proto_msgTypes[4]
+	mi := &file_aigc_v1_user_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -281,7 +281,7 @@ func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_user_proto_rawDescGZIP(), []int{4}
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *LoginRequest) GetEmail() string {
@@ -309,7 +309,7 @@ type LoginReply struct {
 
 func (x *LoginReply) Reset() {
 	*x = LoginReply{}
-	mi := &file_api_aigc_v1_user_proto_msgTypes[5]
+	mi := &file_aigc_v1_user_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -321,7 +321,7 @@ func (x *LoginReply) String() string {
 func (*LoginReply) ProtoMessage() {}
 
 func (x *LoginReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_user_proto_msgTypes[5]
+	mi := &file_aigc_v1_user_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -334,7 +334,7 @@ func (x *LoginReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginReply.ProtoReflect.Descriptor instead.
 func (*LoginReply) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_user_proto_rawDescGZIP(), []int{5}
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *LoginReply) GetCode() int32 {
@@ -358,11 +358,195 @@ func (x *LoginReply) GetMessage() string {
 	return ""
 }
 
-var File_api_aigc_v1_user_proto protoreflect.FileDescriptor
+type GetUserInfoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
 
-const file_api_aigc_v1_user_proto_rawDesc = "" +
+func (x *GetUserInfoRequest) Reset() {
+	*x = GetUserInfoRequest{}
+	mi := &file_aigc_v1_user_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUserInfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserInfoRequest) ProtoMessage() {}
+
+func (x *GetUserInfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_user_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserInfoRequest.ProtoReflect.Descriptor instead.
+func (*GetUserInfoRequest) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{6}
+}
+
+type GetUserInfoReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          int32                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Message       string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUserInfoReply) Reset() {
+	*x = GetUserInfoReply{}
+	mi := &file_aigc_v1_user_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUserInfoReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserInfoReply) ProtoMessage() {}
+
+func (x *GetUserInfoReply) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_user_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserInfoReply.ProtoReflect.Descriptor instead.
+func (*GetUserInfoReply) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetUserInfoReply) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *GetUserInfoReply) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *GetUserInfoReply) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type LogoutRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutRequest) Reset() {
+	*x = LogoutRequest{}
+	mi := &file_aigc_v1_user_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutRequest) ProtoMessage() {}
+
+func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_user_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutRequest.ProtoReflect.Descriptor instead.
+func (*LogoutRequest) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{8}
+}
+
+type LogoutReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          int32                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutReply) Reset() {
+	*x = LogoutReply{}
+	mi := &file_aigc_v1_user_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutReply) ProtoMessage() {}
+
+func (x *LogoutReply) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_user_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutReply.ProtoReflect.Descriptor instead.
+func (*LogoutReply) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_user_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *LogoutReply) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *LogoutReply) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+var File_aigc_v1_user_proto protoreflect.FileDescriptor
+
+const file_aigc_v1_user_proto_rawDesc = "" +
 	"\n" +
-	"\x16api/aigc/v1/user.proto\x12\aaigc.v1\x1a\x1cgoogle/api/annotations.proto\"'\n" +
+	"\x12aigc/v1/user.proto\x12\aaigc.v1\x1a\x1cgoogle/api/annotations.proto\"'\n" +
 	"\x0fSendCodeRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"Q\n" +
 	"\rSendCodeReply\x12\x12\n" +
@@ -384,68 +568,87 @@ const file_api_aigc_v1_user_proto_rawDesc = "" +
 	"LoginReply\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x14\n" +
 	"\x05token\x18\x02 \x01(\tR\x05token\x12\x18\n" +
-	"\amessage\x18\x03 \x01(\tR\amessage2\x82\x02\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"\x14\n" +
+	"\x12GetUserInfoRequest\"V\n" +
+	"\x10GetUserInfoReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x18\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"\x0f\n" +
+	"\rLogoutRequest\";\n" +
+	"\vLogoutReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage2\xb0\x03\n" +
 	"\x04User\x12V\n" +
 	"\bSendCode\x12\x18.aigc.v1.SendCodeRequest\x1a\x16.aigc.v1.SendCodeReply\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/api/sendCode\x12V\n" +
 	"\bRegister\x12\x18.aigc.v1.RegisterRequest\x1a\x16.aigc.v1.RegisterReply\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/api/register\x12J\n" +
 	"\x05Login\x12\x15.aigc.v1.LoginRequest\x1a\x13.aigc.v1.LoginReply\"\x15\x82\xd3\xe4\x93\x02\x0f:\x01*\"\n" +
-	"/api/loginB\x1fZ\x1daigcv3/backend/api/aigc/v1;v1b\x06proto3"
+	"/api/login\x12\\\n" +
+	"\vGetUserInfo\x12\x1b.aigc.v1.GetUserInfoRequest\x1a\x19.aigc.v1.GetUserInfoReply\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/api/userInfo\x12N\n" +
+	"\x06Logout\x12\x16.aigc.v1.LogoutRequest\x1a\x14.aigc.v1.LogoutReply\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\"\v/api/logoutB\x1fZ\x1daigcv3/backend/api/aigc/v1;v1b\x06proto3"
 
 var (
-	file_api_aigc_v1_user_proto_rawDescOnce sync.Once
-	file_api_aigc_v1_user_proto_rawDescData []byte
+	file_aigc_v1_user_proto_rawDescOnce sync.Once
+	file_aigc_v1_user_proto_rawDescData []byte
 )
 
-func file_api_aigc_v1_user_proto_rawDescGZIP() []byte {
-	file_api_aigc_v1_user_proto_rawDescOnce.Do(func() {
-		file_api_aigc_v1_user_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_aigc_v1_user_proto_rawDesc), len(file_api_aigc_v1_user_proto_rawDesc)))
+func file_aigc_v1_user_proto_rawDescGZIP() []byte {
+	file_aigc_v1_user_proto_rawDescOnce.Do(func() {
+		file_aigc_v1_user_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_aigc_v1_user_proto_rawDesc), len(file_aigc_v1_user_proto_rawDesc)))
 	})
-	return file_api_aigc_v1_user_proto_rawDescData
+	return file_aigc_v1_user_proto_rawDescData
 }
 
-var file_api_aigc_v1_user_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_api_aigc_v1_user_proto_goTypes = []any{
-	(*SendCodeRequest)(nil), // 0: aigc.v1.SendCodeRequest
-	(*SendCodeReply)(nil),   // 1: aigc.v1.SendCodeReply
-	(*RegisterRequest)(nil), // 2: aigc.v1.RegisterRequest
-	(*RegisterReply)(nil),   // 3: aigc.v1.RegisterReply
-	(*LoginRequest)(nil),    // 4: aigc.v1.LoginRequest
-	(*LoginReply)(nil),      // 5: aigc.v1.LoginReply
+var file_aigc_v1_user_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_aigc_v1_user_proto_goTypes = []any{
+	(*SendCodeRequest)(nil),    // 0: aigc.v1.SendCodeRequest
+	(*SendCodeReply)(nil),      // 1: aigc.v1.SendCodeReply
+	(*RegisterRequest)(nil),    // 2: aigc.v1.RegisterRequest
+	(*RegisterReply)(nil),      // 3: aigc.v1.RegisterReply
+	(*LoginRequest)(nil),       // 4: aigc.v1.LoginRequest
+	(*LoginReply)(nil),         // 5: aigc.v1.LoginReply
+	(*GetUserInfoRequest)(nil), // 6: aigc.v1.GetUserInfoRequest
+	(*GetUserInfoReply)(nil),   // 7: aigc.v1.GetUserInfoReply
+	(*LogoutRequest)(nil),      // 8: aigc.v1.LogoutRequest
+	(*LogoutReply)(nil),        // 9: aigc.v1.LogoutReply
 }
-var file_api_aigc_v1_user_proto_depIdxs = []int32{
+var file_aigc_v1_user_proto_depIdxs = []int32{
 	0, // 0: aigc.v1.User.SendCode:input_type -> aigc.v1.SendCodeRequest
 	2, // 1: aigc.v1.User.Register:input_type -> aigc.v1.RegisterRequest
 	4, // 2: aigc.v1.User.Login:input_type -> aigc.v1.LoginRequest
-	1, // 3: aigc.v1.User.SendCode:output_type -> aigc.v1.SendCodeReply
-	3, // 4: aigc.v1.User.Register:output_type -> aigc.v1.RegisterReply
-	5, // 5: aigc.v1.User.Login:output_type -> aigc.v1.LoginReply
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	6, // 3: aigc.v1.User.GetUserInfo:input_type -> aigc.v1.GetUserInfoRequest
+	8, // 4: aigc.v1.User.Logout:input_type -> aigc.v1.LogoutRequest
+	1, // 5: aigc.v1.User.SendCode:output_type -> aigc.v1.SendCodeReply
+	3, // 6: aigc.v1.User.Register:output_type -> aigc.v1.RegisterReply
+	5, // 7: aigc.v1.User.Login:output_type -> aigc.v1.LoginReply
+	7, // 8: aigc.v1.User.GetUserInfo:output_type -> aigc.v1.GetUserInfoReply
+	9, // 9: aigc.v1.User.Logout:output_type -> aigc.v1.LogoutReply
+	5, // [5:10] is the sub-list for method output_type
+	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_api_aigc_v1_user_proto_init() }
-func file_api_aigc_v1_user_proto_init() {
-	if File_api_aigc_v1_user_proto != nil {
+func init() { file_aigc_v1_user_proto_init() }
+func file_aigc_v1_user_proto_init() {
+	if File_aigc_v1_user_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_aigc_v1_user_proto_rawDesc), len(file_api_aigc_v1_user_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_aigc_v1_user_proto_rawDesc), len(file_aigc_v1_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_aigc_v1_user_proto_goTypes,
-		DependencyIndexes: file_api_aigc_v1_user_proto_depIdxs,
-		MessageInfos:      file_api_aigc_v1_user_proto_msgTypes,
+		GoTypes:           file_aigc_v1_user_proto_goTypes,
+		DependencyIndexes: file_aigc_v1_user_proto_depIdxs,
+		MessageInfos:      file_aigc_v1_user_proto_msgTypes,
 	}.Build()
-	File_api_aigc_v1_user_proto = out.File
-	file_api_aigc_v1_user_proto_goTypes = nil
-	file_api_aigc_v1_user_proto_depIdxs = nil
+	File_aigc_v1_user_proto = out.File
+	file_aigc_v1_user_proto_goTypes = nil
+	file_aigc_v1_user_proto_depIdxs = nil
 }

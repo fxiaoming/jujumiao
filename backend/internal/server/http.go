@@ -10,9 +10,10 @@ import (
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/gorilla/handlers"
 	"backend/internal/middleware"
-	 netHttp "net/http"
-	 "os"
-	 "path/filepath"
+	"encoding/json"
+	netHttp "net/http"
+	"os"
+	"path/filepath"
 )
 
 // NewHTTPServer new an HTTP server.
@@ -49,9 +50,20 @@ func NewHTTPServer(c *conf.Server, chat *service.ChatService, conversation *serv
 	return srv
 }
 
+type UploadResponse struct {
+	Code int   `json:"code"`
+	Message string `json:"message"`
+	Data    struct {
+			FilePath string `json:"file_path"`
+			FileName string `json:"file_name"`
+	} `json:"data,omitempty"`
+}
+
 func UploadFileHandler(w netHttp.ResponseWriter, r *netHttp.Request) {
 	const maxFileSize = 10 << 20 // 10 MB
 	uploadDir := "/home/xiaoming/uploadFile/aigcv3"
+	// 设置响应头
+  w.Header().Set("Content-Type", "application/json")
 
 	// 检查并创建上传目录
 	if _, err := os.Stat(uploadDir); os.IsNotExist(err) {
@@ -89,5 +101,16 @@ func UploadFileHandler(w netHttp.ResponseWriter, r *netHttp.Request) {
 		return
 	}
 
-	w.Write([]byte("文件上传成功，保存路径: " + savePath))
+	response := UploadResponse{
+		Code: 200,
+		Message: "文件上传成功",
+		Data: struct {
+			FilePath string `json:"file_path"`
+			FileName string `json:"file_name"`
+		}{
+			FilePath: savePath,
+			FileName: handler.Filename,
+		},
+	}
+	json.NewEncoder(w).Encode(response)
 }

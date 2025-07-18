@@ -21,6 +21,9 @@ export default function Chat() {
   const [isWebSearchSelected, setWebSearchSelected] = useState(false);
   const [selectedModel, setSelectedModel] = useState('');
   const [showUpload, setShowUpload] = useState(false);
+  const [skill, setSkill] = useState(false);
+  const [file, setFile] = useState(null);
+  const [filename, setFileName] = useState(null);
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -67,9 +70,14 @@ export default function Chat() {
       toast.warning('请输入内容');
       return;
     }
-    setChatHistory([...chatHistory, { text: input, isUser: true }]);
+    let text = input;
+    if (skill === '文件专家') {
+      if (!file) return toast.warning('请上传文件');
+      text += `文件：${filename}`
+    }
+    setChatHistory([...chatHistory, { text, isUser: true }]);
     setInput('');
-    const res = await api.post('/api/chat', { message: input, conversationId });
+    const res = await api.post('/api/chat', { message: input, conversationId, filePath: file });
     if (res.code === 200) {
       setConversationId(res.data.conversationId); // 更新会话ID
       setChatHistory(his => [...his, { text: res.data.content, isUser: false }]);
@@ -132,7 +140,8 @@ export default function Chat() {
     event.preventDefault();
     if (skill === '文件专家') {
       setShowUpload(true);
-      setInput('我需要将文件：  ，并且在右下角上传文件把！');
+      setSkill('文件专家');
+      setInput('将文件：  ');
     }
     console.log(`Selected skill: ${skill}`);
   };
@@ -153,8 +162,10 @@ export default function Chat() {
       body: formData
     })
       .then(response => response.json())
-      .then(data => {
-        console.log('File uploaded successfully:', data);
+      .then(res => {
+        console.log('File uploaded successfully:', res);
+        setFile(res.data.file_path);
+        setFileName(res.data.file_name);
       })
       .catch(error => {
         console.error('Error uploading file:', error);
@@ -340,19 +351,19 @@ export default function Chat() {
                         }}
                       >
                         上传文件
-                        <CloseOutlined
-                          onClick={handleCloseUpload}
-                          style={{
-                            position: 'absolute',
-                            top: '-5px',
-                            right: '-5px',
-                            fontSize: '12px',
-                            cursor: 'pointer',
-                            color: '#ff4d4f'
-                          }}
-                        />
                       </button>
                     </Upload>
+                    <CloseOutlined
+                      onClick={handleCloseUpload}
+                      style={{
+                        position: 'absolute',
+                        top: '-5px',
+                        right: '-2px',
+                        fontSize: '17px',
+                        cursor: 'pointer',
+                        color: '#ff4d4f'
+                      }}
+                    />
                   </div>
                 )}
                 <button className="btn-main" type="submit" style={{ padding: '10px 20px', borderRadius: '20px', backgroundColor: '#007bff', color: '#fff', border: 'none' }}>发送</button>

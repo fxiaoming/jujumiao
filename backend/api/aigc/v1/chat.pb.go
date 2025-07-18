@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v3.21.12
-// source: api/aigc/v1/chat.proto
+// source: aigc/v1/chat.proto
 
 package v1
 
@@ -26,13 +26,14 @@ type ChatRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Message        string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	ConversationId string                 `protobuf:"bytes,2,opt,name=conversationId,proto3" json:"conversationId,omitempty"`
+	FilePath       string                 `protobuf:"bytes,3,opt,name=filePath,proto3" json:"filePath,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
 
 func (x *ChatRequest) Reset() {
 	*x = ChatRequest{}
-	mi := &file_api_aigc_v1_chat_proto_msgTypes[0]
+	mi := &file_aigc_v1_chat_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +45,7 @@ func (x *ChatRequest) String() string {
 func (*ChatRequest) ProtoMessage() {}
 
 func (x *ChatRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_chat_proto_msgTypes[0]
+	mi := &file_aigc_v1_chat_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +58,7 @@ func (x *ChatRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatRequest.ProtoReflect.Descriptor instead.
 func (*ChatRequest) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_chat_proto_rawDescGZIP(), []int{0}
+	return file_aigc_v1_chat_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *ChatRequest) GetMessage() string {
@@ -74,18 +75,77 @@ func (x *ChatRequest) GetConversationId() string {
 	return ""
 }
 
+func (x *ChatRequest) GetFilePath() string {
+	if x != nil {
+		return x.FilePath
+	}
+	return ""
+}
+
+type ChatData struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ConversationId string                 `protobuf:"bytes,1,opt,name=conversationId,proto3" json:"conversationId,omitempty"`
+	Content        string                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *ChatData) Reset() {
+	*x = ChatData{}
+	mi := &file_aigc_v1_chat_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatData) ProtoMessage() {}
+
+func (x *ChatData) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_chat_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatData.ProtoReflect.Descriptor instead.
+func (*ChatData) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_chat_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ChatData) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *ChatData) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
 type ChatReply struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Code          int32                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
 	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	Data          string                 `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
+	Data          *ChatData              `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ChatReply) Reset() {
 	*x = ChatReply{}
-	mi := &file_api_aigc_v1_chat_proto_msgTypes[1]
+	mi := &file_aigc_v1_chat_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -97,7 +157,7 @@ func (x *ChatReply) String() string {
 func (*ChatReply) ProtoMessage() {}
 
 func (x *ChatReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_chat_proto_msgTypes[1]
+	mi := &file_aigc_v1_chat_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -110,7 +170,7 @@ func (x *ChatReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChatReply.ProtoReflect.Descriptor instead.
 func (*ChatReply) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_chat_proto_rawDescGZIP(), []int{1}
+	return file_aigc_v1_chat_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *ChatReply) GetCode() int32 {
@@ -127,75 +187,81 @@ func (x *ChatReply) GetMessage() string {
 	return ""
 }
 
-func (x *ChatReply) GetData() string {
+func (x *ChatReply) GetData() *ChatData {
 	if x != nil {
 		return x.Data
 	}
-	return ""
+	return nil
 }
 
-var File_api_aigc_v1_chat_proto protoreflect.FileDescriptor
+var File_aigc_v1_chat_proto protoreflect.FileDescriptor
 
-const file_api_aigc_v1_chat_proto_rawDesc = "" +
+const file_aigc_v1_chat_proto_rawDesc = "" +
 	"\n" +
-	"\x16api/aigc/v1/chat.proto\x12\aaigc.v1\x1a\x1cgoogle/api/annotations.proto\"O\n" +
+	"\x12aigc/v1/chat.proto\x12\aaigc.v1\x1a\x1cgoogle/api/annotations.proto\"k\n" +
 	"\vChatRequest\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\x12&\n" +
-	"\x0econversationId\x18\x02 \x01(\tR\x0econversationId\"M\n" +
+	"\x0econversationId\x18\x02 \x01(\tR\x0econversationId\x12\x1a\n" +
+	"\bfilePath\x18\x03 \x01(\tR\bfilePath\"L\n" +
+	"\bChatData\x12&\n" +
+	"\x0econversationId\x18\x01 \x01(\tR\x0econversationId\x12\x18\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\"`\n" +
 	"\tChatReply\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\x12\x12\n" +
-	"\x04data\x18\x03 \x01(\tR\x04data2N\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\x12%\n" +
+	"\x04data\x18\x03 \x01(\v2\x11.aigc.v1.ChatDataR\x04data2N\n" +
 	"\x04Chat\x12F\n" +
 	"\x04Chat\x12\x14.aigc.v1.ChatRequest\x1a\x12.aigc.v1.ChatReply\"\x14\x82\xd3\xe4\x93\x02\x0e:\x01*\"\t/api/chatB\x1fZ\x1daigcv3/backend/api/aigc/v1;v1b\x06proto3"
 
 var (
-	file_api_aigc_v1_chat_proto_rawDescOnce sync.Once
-	file_api_aigc_v1_chat_proto_rawDescData []byte
+	file_aigc_v1_chat_proto_rawDescOnce sync.Once
+	file_aigc_v1_chat_proto_rawDescData []byte
 )
 
-func file_api_aigc_v1_chat_proto_rawDescGZIP() []byte {
-	file_api_aigc_v1_chat_proto_rawDescOnce.Do(func() {
-		file_api_aigc_v1_chat_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_aigc_v1_chat_proto_rawDesc), len(file_api_aigc_v1_chat_proto_rawDesc)))
+func file_aigc_v1_chat_proto_rawDescGZIP() []byte {
+	file_aigc_v1_chat_proto_rawDescOnce.Do(func() {
+		file_aigc_v1_chat_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_aigc_v1_chat_proto_rawDesc), len(file_aigc_v1_chat_proto_rawDesc)))
 	})
-	return file_api_aigc_v1_chat_proto_rawDescData
+	return file_aigc_v1_chat_proto_rawDescData
 }
 
-var file_api_aigc_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_api_aigc_v1_chat_proto_goTypes = []any{
+var file_aigc_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_aigc_v1_chat_proto_goTypes = []any{
 	(*ChatRequest)(nil), // 0: aigc.v1.ChatRequest
-	(*ChatReply)(nil),   // 1: aigc.v1.ChatReply
+	(*ChatData)(nil),    // 1: aigc.v1.ChatData
+	(*ChatReply)(nil),   // 2: aigc.v1.ChatReply
 }
-var file_api_aigc_v1_chat_proto_depIdxs = []int32{
-	0, // 0: aigc.v1.Chat.Chat:input_type -> aigc.v1.ChatRequest
-	1, // 1: aigc.v1.Chat.Chat:output_type -> aigc.v1.ChatReply
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+var file_aigc_v1_chat_proto_depIdxs = []int32{
+	1, // 0: aigc.v1.ChatReply.data:type_name -> aigc.v1.ChatData
+	0, // 1: aigc.v1.Chat.Chat:input_type -> aigc.v1.ChatRequest
+	2, // 2: aigc.v1.Chat.Chat:output_type -> aigc.v1.ChatReply
+	2, // [2:3] is the sub-list for method output_type
+	1, // [1:2] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_api_aigc_v1_chat_proto_init() }
-func file_api_aigc_v1_chat_proto_init() {
-	if File_api_aigc_v1_chat_proto != nil {
+func init() { file_aigc_v1_chat_proto_init() }
+func file_aigc_v1_chat_proto_init() {
+	if File_aigc_v1_chat_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_aigc_v1_chat_proto_rawDesc), len(file_api_aigc_v1_chat_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_aigc_v1_chat_proto_rawDesc), len(file_aigc_v1_chat_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_aigc_v1_chat_proto_goTypes,
-		DependencyIndexes: file_api_aigc_v1_chat_proto_depIdxs,
-		MessageInfos:      file_api_aigc_v1_chat_proto_msgTypes,
+		GoTypes:           file_aigc_v1_chat_proto_goTypes,
+		DependencyIndexes: file_aigc_v1_chat_proto_depIdxs,
+		MessageInfos:      file_aigc_v1_chat_proto_msgTypes,
 	}.Build()
-	File_api_aigc_v1_chat_proto = out.File
-	file_api_aigc_v1_chat_proto_goTypes = nil
-	file_api_aigc_v1_chat_proto_depIdxs = nil
+	File_aigc_v1_chat_proto = out.File
+	file_aigc_v1_chat_proto_goTypes = nil
+	file_aigc_v1_chat_proto_depIdxs = nil
 }

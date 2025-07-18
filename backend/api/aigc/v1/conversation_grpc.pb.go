@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v3.21.12
-// source: api/aigc/v1/conversation.proto
+// source: aigc/v1/conversation.proto
 
 package v1
 
@@ -19,14 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Conversation_CreateConversation_FullMethodName = "/aigc.v1.Conversation/CreateConversation"
+	Conversation_CreateConversation_FullMethodName     = "/aigc.v1.Conversation/CreateConversation"
+	Conversation_GetConversation_FullMethodName        = "/aigc.v1.Conversation/GetConversation"
+	Conversation_GetConversationContext_FullMethodName = "/aigc.v1.Conversation/GetConversationContext"
 )
 
 // ConversationClient is the client API for Conversation service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ConversationClient interface {
-	CreateConversation(ctx context.Context, in *CreateConversationRequest, opts ...grpc.CallOption) (*CreateConversationReply, error)
+	CreateConversation(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*CreateConversationReply, error)
+	GetConversation(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetConversationReply, error)
+	GetConversationContext(ctx context.Context, in *GetConversationContextRequest, opts ...grpc.CallOption) (*GetConversationContextReply, error)
 }
 
 type conversationClient struct {
@@ -37,10 +41,30 @@ func NewConversationClient(cc grpc.ClientConnInterface) ConversationClient {
 	return &conversationClient{cc}
 }
 
-func (c *conversationClient) CreateConversation(ctx context.Context, in *CreateConversationRequest, opts ...grpc.CallOption) (*CreateConversationReply, error) {
+func (c *conversationClient) CreateConversation(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*CreateConversationReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateConversationReply)
 	err := c.cc.Invoke(ctx, Conversation_CreateConversation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *conversationClient) GetConversation(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetConversationReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetConversationReply)
+	err := c.cc.Invoke(ctx, Conversation_GetConversation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *conversationClient) GetConversationContext(ctx context.Context, in *GetConversationContextRequest, opts ...grpc.CallOption) (*GetConversationContextReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetConversationContextReply)
+	err := c.cc.Invoke(ctx, Conversation_GetConversationContext_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +75,9 @@ func (c *conversationClient) CreateConversation(ctx context.Context, in *CreateC
 // All implementations must embed UnimplementedConversationServer
 // for forward compatibility.
 type ConversationServer interface {
-	CreateConversation(context.Context, *CreateConversationRequest) (*CreateConversationReply, error)
+	CreateConversation(context.Context, *EmptyRequest) (*CreateConversationReply, error)
+	GetConversation(context.Context, *EmptyRequest) (*GetConversationReply, error)
+	GetConversationContext(context.Context, *GetConversationContextRequest) (*GetConversationContextReply, error)
 	mustEmbedUnimplementedConversationServer()
 }
 
@@ -62,8 +88,14 @@ type ConversationServer interface {
 // pointer dereference when methods are called.
 type UnimplementedConversationServer struct{}
 
-func (UnimplementedConversationServer) CreateConversation(context.Context, *CreateConversationRequest) (*CreateConversationReply, error) {
+func (UnimplementedConversationServer) CreateConversation(context.Context, *EmptyRequest) (*CreateConversationReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateConversation not implemented")
+}
+func (UnimplementedConversationServer) GetConversation(context.Context, *EmptyRequest) (*GetConversationReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetConversation not implemented")
+}
+func (UnimplementedConversationServer) GetConversationContext(context.Context, *GetConversationContextRequest) (*GetConversationContextReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetConversationContext not implemented")
 }
 func (UnimplementedConversationServer) mustEmbedUnimplementedConversationServer() {}
 func (UnimplementedConversationServer) testEmbeddedByValue()                      {}
@@ -87,7 +119,7 @@ func RegisterConversationServer(s grpc.ServiceRegistrar, srv ConversationServer)
 }
 
 func _Conversation_CreateConversation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateConversationRequest)
+	in := new(EmptyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -99,7 +131,43 @@ func _Conversation_CreateConversation_Handler(srv interface{}, ctx context.Conte
 		FullMethod: Conversation_CreateConversation_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConversationServer).CreateConversation(ctx, req.(*CreateConversationRequest))
+		return srv.(ConversationServer).CreateConversation(ctx, req.(*EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Conversation_GetConversation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConversationServer).GetConversation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Conversation_GetConversation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConversationServer).GetConversation(ctx, req.(*EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Conversation_GetConversationContext_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetConversationContextRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConversationServer).GetConversationContext(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Conversation_GetConversationContext_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConversationServer).GetConversationContext(ctx, req.(*GetConversationContextRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -115,7 +183,15 @@ var Conversation_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "CreateConversation",
 			Handler:    _Conversation_CreateConversation_Handler,
 		},
+		{
+			MethodName: "GetConversation",
+			Handler:    _Conversation_GetConversation_Handler,
+		},
+		{
+			MethodName: "GetConversationContext",
+			Handler:    _Conversation_GetConversationContext_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/aigc/v1/conversation.proto",
+	Metadata: "aigc/v1/conversation.proto",
 }

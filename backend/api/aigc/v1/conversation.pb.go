@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v3.21.12
-// source: api/aigc/v1/conversation.proto
+// source: aigc/v1/conversation.proto
 
 package v1
 
@@ -22,6 +22,310 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type GetConversationContextRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ConversationId string                 `protobuf:"bytes,1,opt,name=conversationId,proto3" json:"conversationId,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetConversationContextRequest) Reset() {
+	*x = GetConversationContextRequest{}
+	mi := &file_aigc_v1_conversation_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConversationContextRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConversationContextRequest) ProtoMessage() {}
+
+func (x *GetConversationContextRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_conversation_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConversationContextRequest.ProtoReflect.Descriptor instead.
+func (*GetConversationContextRequest) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_conversation_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *GetConversationContextRequest) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+type ContextData struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Role          string                 `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+	Content       string                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ContextData) Reset() {
+	*x = ContextData{}
+	mi := &file_aigc_v1_conversation_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ContextData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContextData) ProtoMessage() {}
+
+func (x *ContextData) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_conversation_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContextData.ProtoReflect.Descriptor instead.
+func (*ContextData) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_conversation_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ContextData) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
+func (x *ContextData) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+type GetConversationContextReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          int32                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	Context       []*ContextData         `protobuf:"bytes,3,rep,name=context,proto3" json:"context,omitempty"` // 假设上下文是字符串列表
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetConversationContextReply) Reset() {
+	*x = GetConversationContextReply{}
+	mi := &file_aigc_v1_conversation_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConversationContextReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConversationContextReply) ProtoMessage() {}
+
+func (x *GetConversationContextReply) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_conversation_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConversationContextReply.ProtoReflect.Descriptor instead.
+func (*GetConversationContextReply) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_conversation_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetConversationContextReply) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *GetConversationContextReply) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *GetConversationContextReply) GetContext() []*ContextData {
+	if x != nil {
+		return x.Context
+	}
+	return nil
+}
+
+type ConversationData struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Cid           string                 `protobuf:"bytes,1,opt,name=cid,proto3" json:"cid,omitempty"`
+	CalMessage    string                 `protobuf:"bytes,2,opt,name=calMessage,proto3" json:"calMessage,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConversationData) Reset() {
+	*x = ConversationData{}
+	mi := &file_aigc_v1_conversation_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConversationData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConversationData) ProtoMessage() {}
+
+func (x *ConversationData) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_conversation_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConversationData.ProtoReflect.Descriptor instead.
+func (*ConversationData) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_conversation_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ConversationData) GetCid() string {
+	if x != nil {
+		return x.Cid
+	}
+	return ""
+}
+
+func (x *ConversationData) GetCalMessage() string {
+	if x != nil {
+		return x.CalMessage
+	}
+	return ""
+}
+
+type GetConversationReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          int32                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	Data          []*ConversationData    `protobuf:"bytes,3,rep,name=data,proto3" json:"data,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetConversationReply) Reset() {
+	*x = GetConversationReply{}
+	mi := &file_aigc_v1_conversation_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConversationReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConversationReply) ProtoMessage() {}
+
+func (x *GetConversationReply) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_conversation_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConversationReply.ProtoReflect.Descriptor instead.
+func (*GetConversationReply) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_conversation_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetConversationReply) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *GetConversationReply) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *GetConversationReply) GetData() []*ConversationData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type EmptyRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *EmptyRequest) Reset() {
+	*x = EmptyRequest{}
+	mi := &file_aigc_v1_conversation_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EmptyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EmptyRequest) ProtoMessage() {}
+
+func (x *EmptyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_aigc_v1_conversation_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EmptyRequest.ProtoReflect.Descriptor instead.
+func (*EmptyRequest) Descriptor() ([]byte, []int) {
+	return file_aigc_v1_conversation_proto_rawDescGZIP(), []int{5}
+}
+
 type CreateConversationRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
@@ -30,7 +334,7 @@ type CreateConversationRequest struct {
 
 func (x *CreateConversationRequest) Reset() {
 	*x = CreateConversationRequest{}
-	mi := &file_api_aigc_v1_conversation_proto_msgTypes[0]
+	mi := &file_aigc_v1_conversation_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -42,7 +346,7 @@ func (x *CreateConversationRequest) String() string {
 func (*CreateConversationRequest) ProtoMessage() {}
 
 func (x *CreateConversationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_conversation_proto_msgTypes[0]
+	mi := &file_aigc_v1_conversation_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +359,7 @@ func (x *CreateConversationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateConversationRequest.ProtoReflect.Descriptor instead.
 func (*CreateConversationRequest) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_conversation_proto_rawDescGZIP(), []int{0}
+	return file_aigc_v1_conversation_proto_rawDescGZIP(), []int{6}
 }
 
 type CreateConversationReply struct {
@@ -69,7 +373,7 @@ type CreateConversationReply struct {
 
 func (x *CreateConversationReply) Reset() {
 	*x = CreateConversationReply{}
-	mi := &file_api_aigc_v1_conversation_proto_msgTypes[1]
+	mi := &file_aigc_v1_conversation_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -81,7 +385,7 @@ func (x *CreateConversationReply) String() string {
 func (*CreateConversationReply) ProtoMessage() {}
 
 func (x *CreateConversationReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_aigc_v1_conversation_proto_msgTypes[1]
+	mi := &file_aigc_v1_conversation_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -94,7 +398,7 @@ func (x *CreateConversationReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateConversationReply.ProtoReflect.Descriptor instead.
 func (*CreateConversationReply) Descriptor() ([]byte, []int) {
-	return file_api_aigc_v1_conversation_proto_rawDescGZIP(), []int{1}
+	return file_aigc_v1_conversation_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *CreateConversationReply) GetCode() int32 {
@@ -118,66 +422,99 @@ func (x *CreateConversationReply) GetConversationId() string {
 	return ""
 }
 
-var File_api_aigc_v1_conversation_proto protoreflect.FileDescriptor
+var File_aigc_v1_conversation_proto protoreflect.FileDescriptor
 
-const file_api_aigc_v1_conversation_proto_rawDesc = "" +
+const file_aigc_v1_conversation_proto_rawDesc = "" +
 	"\n" +
-	"\x1eapi/aigc/v1/conversation.proto\x12\aaigc.v1\x1a\x1cgoogle/api/annotations.proto\"\x1b\n" +
+	"\x1aaigc/v1/conversation.proto\x12\aaigc.v1\x1a\x1cgoogle/api/annotations.proto\"G\n" +
+	"\x1dGetConversationContextRequest\x12&\n" +
+	"\x0econversationId\x18\x01 \x01(\tR\x0econversationId\";\n" +
+	"\vContextData\x12\x12\n" +
+	"\x04role\x18\x01 \x01(\tR\x04role\x12\x18\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\"{\n" +
+	"\x1bGetConversationContextReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\x12.\n" +
+	"\acontext\x18\x03 \x03(\v2\x14.aigc.v1.ContextDataR\acontext\"D\n" +
+	"\x10ConversationData\x12\x10\n" +
+	"\x03cid\x18\x01 \x01(\tR\x03cid\x12\x1e\n" +
+	"\n" +
+	"calMessage\x18\x02 \x01(\tR\n" +
+	"calMessage\"s\n" +
+	"\x14GetConversationReply\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\x12-\n" +
+	"\x04data\x18\x03 \x03(\v2\x19.aigc.v1.ConversationDataR\x04data\"\x0e\n" +
+	"\fEmptyRequest\"\x1b\n" +
 	"\x19CreateConversationRequest\"o\n" +
 	"\x17CreateConversationReply\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12&\n" +
-	"\x0econversationId\x18\x03 \x01(\tR\x0econversationId2\x88\x01\n" +
-	"\fConversation\x12x\n" +
-	"\x12CreateConversation\x12\".aigc.v1.CreateConversationRequest\x1a .aigc.v1.CreateConversationReply\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/api/conversationB\x1fZ\x1daigcv3/backend/api/aigc/v1;v1b\x06proto3"
+	"\x0econversationId\x18\x03 \x01(\tR\x0econversationId2\xfc\x02\n" +
+	"\fConversation\x12k\n" +
+	"\x12CreateConversation\x12\x15.aigc.v1.EmptyRequest\x1a .aigc.v1.CreateConversationReply\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/api/conversation\x12b\n" +
+	"\x0fGetConversation\x12\x15.aigc.v1.EmptyRequest\x1a\x1d.aigc.v1.GetConversationReply\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/api/conversation\x12\x9a\x01\n" +
+	"\x16GetConversationContext\x12&.aigc.v1.GetConversationContextRequest\x1a$.aigc.v1.GetConversationContextReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/conversation/{conversationId}/contextB\x1fZ\x1daigcv3/backend/api/aigc/v1;v1b\x06proto3"
 
 var (
-	file_api_aigc_v1_conversation_proto_rawDescOnce sync.Once
-	file_api_aigc_v1_conversation_proto_rawDescData []byte
+	file_aigc_v1_conversation_proto_rawDescOnce sync.Once
+	file_aigc_v1_conversation_proto_rawDescData []byte
 )
 
-func file_api_aigc_v1_conversation_proto_rawDescGZIP() []byte {
-	file_api_aigc_v1_conversation_proto_rawDescOnce.Do(func() {
-		file_api_aigc_v1_conversation_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_aigc_v1_conversation_proto_rawDesc), len(file_api_aigc_v1_conversation_proto_rawDesc)))
+func file_aigc_v1_conversation_proto_rawDescGZIP() []byte {
+	file_aigc_v1_conversation_proto_rawDescOnce.Do(func() {
+		file_aigc_v1_conversation_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_aigc_v1_conversation_proto_rawDesc), len(file_aigc_v1_conversation_proto_rawDesc)))
 	})
-	return file_api_aigc_v1_conversation_proto_rawDescData
+	return file_aigc_v1_conversation_proto_rawDescData
 }
 
-var file_api_aigc_v1_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_api_aigc_v1_conversation_proto_goTypes = []any{
-	(*CreateConversationRequest)(nil), // 0: aigc.v1.CreateConversationRequest
-	(*CreateConversationReply)(nil),   // 1: aigc.v1.CreateConversationReply
+var file_aigc_v1_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_aigc_v1_conversation_proto_goTypes = []any{
+	(*GetConversationContextRequest)(nil), // 0: aigc.v1.GetConversationContextRequest
+	(*ContextData)(nil),                   // 1: aigc.v1.ContextData
+	(*GetConversationContextReply)(nil),   // 2: aigc.v1.GetConversationContextReply
+	(*ConversationData)(nil),              // 3: aigc.v1.ConversationData
+	(*GetConversationReply)(nil),          // 4: aigc.v1.GetConversationReply
+	(*EmptyRequest)(nil),                  // 5: aigc.v1.EmptyRequest
+	(*CreateConversationRequest)(nil),     // 6: aigc.v1.CreateConversationRequest
+	(*CreateConversationReply)(nil),       // 7: aigc.v1.CreateConversationReply
 }
-var file_api_aigc_v1_conversation_proto_depIdxs = []int32{
-	0, // 0: aigc.v1.Conversation.CreateConversation:input_type -> aigc.v1.CreateConversationRequest
-	1, // 1: aigc.v1.Conversation.CreateConversation:output_type -> aigc.v1.CreateConversationReply
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+var file_aigc_v1_conversation_proto_depIdxs = []int32{
+	1, // 0: aigc.v1.GetConversationContextReply.context:type_name -> aigc.v1.ContextData
+	3, // 1: aigc.v1.GetConversationReply.data:type_name -> aigc.v1.ConversationData
+	5, // 2: aigc.v1.Conversation.CreateConversation:input_type -> aigc.v1.EmptyRequest
+	5, // 3: aigc.v1.Conversation.GetConversation:input_type -> aigc.v1.EmptyRequest
+	0, // 4: aigc.v1.Conversation.GetConversationContext:input_type -> aigc.v1.GetConversationContextRequest
+	7, // 5: aigc.v1.Conversation.CreateConversation:output_type -> aigc.v1.CreateConversationReply
+	4, // 6: aigc.v1.Conversation.GetConversation:output_type -> aigc.v1.GetConversationReply
+	2, // 7: aigc.v1.Conversation.GetConversationContext:output_type -> aigc.v1.GetConversationContextReply
+	5, // [5:8] is the sub-list for method output_type
+	2, // [2:5] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_api_aigc_v1_conversation_proto_init() }
-func file_api_aigc_v1_conversation_proto_init() {
-	if File_api_aigc_v1_conversation_proto != nil {
+func init() { file_aigc_v1_conversation_proto_init() }
+func file_aigc_v1_conversation_proto_init() {
+	if File_aigc_v1_conversation_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_aigc_v1_conversation_proto_rawDesc), len(file_api_aigc_v1_conversation_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_aigc_v1_conversation_proto_rawDesc), len(file_aigc_v1_conversation_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_aigc_v1_conversation_proto_goTypes,
-		DependencyIndexes: file_api_aigc_v1_conversation_proto_depIdxs,
-		MessageInfos:      file_api_aigc_v1_conversation_proto_msgTypes,
+		GoTypes:           file_aigc_v1_conversation_proto_goTypes,
+		DependencyIndexes: file_aigc_v1_conversation_proto_depIdxs,
+		MessageInfos:      file_aigc_v1_conversation_proto_msgTypes,
 	}.Build()
-	File_api_aigc_v1_conversation_proto = out.File
-	file_api_aigc_v1_conversation_proto_goTypes = nil
-	file_api_aigc_v1_conversation_proto_depIdxs = nil
+	File_aigc_v1_conversation_proto = out.File
+	file_aigc_v1_conversation_proto_goTypes = nil
+	file_aigc_v1_conversation_proto_depIdxs = nil
 }
