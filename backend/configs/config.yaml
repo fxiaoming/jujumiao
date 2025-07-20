@@ -8,7 +8,11 @@ server:
 data:
   database:
     driver: mongodb
-    source: mongodb://localhost:27017
+    # MongoDB 连接字符串，支持以下格式：
+    # 无密码: mongodb://localhost:27017/jujumiao
+    # 有密码: mongodb://username:password@localhost:27017/jujumiao?authSource=admin
+    # 环境变量: ${MONGO_URI} 或 ${MONGO_USER}:${MONGO_PASS}@localhost:27017/jujumiao?authSource=admin
+    source: mongodb://admin:jujumiao123@localhost:27017/jujumiao?authSource=admin
   redis:
     addr: 127.0.0.1:6379
     read_timeout: 0.2s

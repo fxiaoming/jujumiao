@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"os"
 
 	"backend/internal/conf"
@@ -79,6 +80,7 @@ func main() {
 	// 初始化数据库
 	client, err := data.NewMongoClient(bc.Data)
 	if err != nil {
+		fmt.Println("err", err)
 		panic(err)
 	}
 
