@@ -81,7 +81,7 @@ export default function Login({ onLogin, onSwitch }) {
     setLoading(true);
     setMsg('');
     try {
-      const response = await api.post('/api/login', { email, password });
+      const response = await api.post('/backend/api/login', { email, password });
       console.log(response);
       
       if (response.code === 200) {

@@ -110,7 +110,7 @@ export default function Register({ onSwitch }) {
   const sendCode = async () => {
     if (!email) return setMsg('请输入邮箱');
     setSending(true);
-    const data = await api.post('/api/sendCode', { email });
+    const data = await api.post('/backend/api/sendCode', { email });
     setMsg(data.message);
     setSending(false);
     setCount(60);
@@ -118,7 +118,7 @@ export default function Register({ onSwitch }) {
 
   const register = async () => {
     if (!email || !code || !password) return setMsg('请填写完整信息');
-    const data = await api.post('/api/register', { email, password, code });
+    const data = await api.post('/backend/api/register', { email, password, code });
     setMsg(data.message);
     if (data.code === 200) setTimeout(() => onSwitch('login'), 1200);
   };

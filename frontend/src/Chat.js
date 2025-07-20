@@ -27,7 +27,7 @@ export default function Chat() {
 
   useEffect(() => {
     const fetchConversations = async () => {
-      const res = await api.get('/api/conversation', {});
+      const res = await api.get('/backend/api/conversation', {});
       if (res.code === 200) {
         setConversations(res.data);
       }
@@ -36,7 +36,7 @@ export default function Chat() {
   }, []);
 
   const createConversation = async () => {
-    const res = await api.post('/api/conversation', {});
+    const res = await api.post('/backend/api/conversation', {});
     if (res.code === 200) {
       const newConversation = { cid: res.conversationId, calMessage: '' };
       setConversations([...conversations, newConversation]);
@@ -52,7 +52,7 @@ export default function Chat() {
   const selectConversation = async (conversation) => {
     setSelectedConversation(conversation);
     setConversationId(conversation.cid);
-    const res = await api.get(`/api/conversation/${conversation.cid}/context`);
+    const res = await api.get(`/backend/api/conversation/${conversation.cid}/context`);
     if (res.code === 200) {
       const history = res.context.map(item => ({
         text: item.content,
@@ -77,7 +77,7 @@ export default function Chat() {
     }
     setChatHistory([...chatHistory, { text, isUser: true }]);
     setInput('');
-    const res = await api.post('/api/chat', { message: input, conversationId, filePath: file });
+    const res = await api.post('/backend/api/chat', { message: input, conversationId, filePath: file });
     if (res.code === 200) {
       setConversationId(res.data.conversationId); // 更新会话ID
       setChatHistory(his => [...his, { text: res.data.content, isUser: false }]);
@@ -87,7 +87,7 @@ export default function Chat() {
   };
 
   const fetchUserInfo = async () => {
-    const res = await api.get('/api/userInfo');
+    const res = await api.get('/backend/api/userInfo');
     if (res.code === 200) {
       setUserEmail(res.email);
       setShowUserInfo(true);
@@ -157,7 +157,7 @@ export default function Chat() {
     formData.append('filename', file.name);
   
     // formData
-    fetch('/api/upload', {
+    fetch('/backend/api/upload', {
       method: 'POST',
       body: formData
     })

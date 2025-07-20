@@ -1,8 +1,13 @@
 // src/api.js
 
+// API 基础路径配置
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/backend';
+
 class API {
   async get(url, options = {}) {
-    const res = await fetch(url, {
+    // 确保 URL 以 /backend 开头
+    const fullUrl = url.startsWith('/backend') ? url : `${API_BASE_URL}${url}`;
+    const res = await fetch(fullUrl, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -14,7 +19,9 @@ class API {
   }
 
   async post(url, data, options = {}) {
-    const res = await fetch(url, {
+    // 确保 URL 以 /backend 开头
+    const fullUrl = url.startsWith('/backend') ? url : `${API_BASE_URL}${url}`;
+    const res = await fetch(fullUrl, {
       method: 'POST',
       headers: {  
         'Content-Type': 'application/json',
